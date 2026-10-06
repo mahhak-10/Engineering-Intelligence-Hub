@@ -1,0 +1,450 @@
+[
+  {
+    "id": "q001",
+    "question": "How does a Requests Session choose the connection adapter for a URL?",
+    "type": "single_source",
+    "expected_sources": [
+      "knowledge_base/requests_corpus/code/sessions.py"
+    ],
+    "reference_answer": "The Session checks its registered URL prefixes in order and returns the first matching adapter; if none matches, it raises InvalidSchema.",
+    "answerable": true
+  },
+  {
+    "id": "q002",
+    "question": "What does using one Requests Session for several requests to the same host provide?",
+    "type": "single_source",
+    "expected_sources": [
+      "knowledge_base/requests_corpus/docs/advanced.rst"
+    ],
+    "reference_answer": "The Session persists state such as cookies and uses connection pooling so connections to the same host can be reused.",
+    "answerable": true
+  },
+  {
+    "id": "q003",
+    "question": "What security consequence follows from disabling certificate verification for an HTTPS request in Requests?",
+    "type": "single_source",
+    "expected_sources": [
+      "knowledge_base/requests_corpus/docs/advanced.rst"
+    ],
+    "reference_answer": "The server certificate is no longer verified, including hostname and expiry checks, leaving the connection vulnerable to man-in-the-middle attacks.",
+    "answerable": true
+  },
+  {
+    "id": "q004",
+    "question": "How does Requests let a custom authentication object modify a prepared request?",
+    "type": "single_source",
+    "expected_sources": [
+      "knowledge_base/requests_corpus/code/auth.py"
+    ],
+    "reference_answer": "A custom authentication object can implement the authentication hook that receives the prepared request and modifies it before the request is sent.",
+    "answerable": true
+  },
+  {
+    "id": "q005",
+    "question": "When a response is streamed, what does Requests expose through the decoded-content iterator versus the underlying stream?",
+    "type": "single_source",
+    "expected_sources": [
+      "knowledge_base/requests_corpus/code/models.py"
+    ],
+    "reference_answer": "The decoded-content iterator yields response data after transfer decoding, while the raw attribute exposes the underlying byte stream.",
+    "answerable": true
+  },
+  {
+    "id": "q006",
+    "question": "What does Requests do when raise_for_status is called on a successful response versus a 4xx or 5xx response?",
+    "type": "single_source",
+    "expected_sources": [
+      "knowledge_base/requests_corpus/docs/quickstart.rst"
+    ],
+    "reference_answer": "It does nothing for a successful response but raises HTTPError for 4xx or 5xx responses.",
+    "answerable": true
+  },
+  {
+    "id": "q007",
+    "question": "How does Axios limit how long a request may wait before it is aborted?",
+    "type": "single_source",
+    "expected_sources": [
+      "knowledge_base/axios_corpus/docs/features.md"
+    ],
+    "reference_answer": "Axios uses the timeout option in milliseconds; when the configured limit is exceeded, the request is aborted. The default is no timeout.",
+    "answerable": true
+  },
+  {
+    "id": "q008",
+    "question": "How can an Axios interceptor be removed after it has been registered?",
+    "type": "single_source",
+    "expected_sources": [
+      "knowledge_base/axios_corpus/code/InterceptorManager.js"
+    ],
+    "reference_answer": "The ID returned when the interceptor is registered can be passed to eject(); clear() removes all interceptors.",
+    "answerable": true
+  },
+  {
+    "id": "q009",
+    "question": "When Axios merges two request configurations, which settings take precedence from the second config and which kinds of properties are merged?",
+    "type": "single_source",
+    "expected_sources": [
+      "knowledge_base/axios_corpus/code/mergeConfig.js"
+    ],
+    "reference_answer": "Axios gives the second configuration precedence for properties such as url, method, and data. For other settings, the second config is used when it defines the value, while the first config can be retained when it does not. Nested objects such as headers are merged rather than simply replacing the whole object.",
+    "answerable": true
+  },
+  {
+    "id": "q010",
+    "question": "How do Requests and Axios differ in the way a caller specifies request time limits?",
+    "type": "multi_source",
+    "expected_sources": [
+      "knowledge_base/requests_corpus/docs/quickstart.rst",
+      "knowledge_base/requests_corpus/docs/advanced.rst",
+      "knowledge_base/axios_corpus/docs/features.md"
+    ],
+    "reference_answer": "Requests accepts a timeout value, including connect/read timeout forms, while Axios uses a millisecond timeout setting.",
+    "answerable": true
+  },
+  {
+    "id": "q011",
+    "question": "A service wants to reuse network connections. How does Requests achieve that, and what is the corresponding request-dispatch mechanism in Axios?",
+    "type": "multi_source",
+    "expected_sources": [
+      "knowledge_base/requests_corpus/docs/advanced.rst",
+      "knowledge_base/requests_corpus/code/adapters.py",
+      "knowledge_base/axios_corpus/code/dispatchRequest.js"
+    ],
+    "reference_answer": "Requests Sessions use urllib3 connection pooling through transport adapters, while Axios sends requests through an environment-specific adapter selected in its dispatch path.",
+    "answerable": true
+  },
+  {
+    "id": "q012",
+    "question": "How do the two clients handle TLS verification settings before a request reaches the network?",
+    "type": "multi_source",
+    "expected_sources": [
+      "knowledge_base/requests_corpus/code/adapters.py",
+      "knowledge_base/requests_corpus/docs/advanced.rst",
+      "knowledge_base/axios_corpus/code/resolveConfig.js"
+    ],
+    "reference_answer": "Requests passes certificate-verification settings into its HTTP adapter, while Axios resolves request configuration, including adapter selection, before dispatch.",
+    "answerable": true
+  },
+  {
+    "id": "q013",
+    "question": "A developer needs to add credentials to outgoing requests. What are the corresponding extension points in Requests and Axios?",
+    "type": "multi_source",
+    "expected_sources": [
+      "knowledge_base/requests_corpus/docs/advanced.rst",
+      "knowledge_base/requests_corpus/code/auth.py",
+      "knowledge_base/axios_corpus/code/InterceptorManager.js"
+    ],
+    "reference_answer": "Requests can modify a request through an auth callable/AuthBase implementation, while Axios can modify request configuration with a request interceptor.",
+    "answerable": true
+  },
+  {
+    "id": "q014",
+    "question": "How are transport failures surfaced differently by Requests and Axios?",
+    "type": "multi_source",
+    "expected_sources": [
+      "knowledge_base/requests_corpus/code/exceptions.py",
+      "knowledge_base/requests_corpus/code/adapters.py",
+      "knowledge_base/axios_corpus/code/AxiosError.js",
+      "knowledge_base/axios_corpus/code/dispatchRequest.js"
+    ],
+    "reference_answer": "Requests maps failures into its exception hierarchy, while Axios propagates rejected promises carrying AxiosError details and error codes.",
+    "answerable": true
+  },
+  {
+    "id": "q015",
+    "question": "What path does Axios take when a request is cancelled, from the cancellation signal to the final error?",
+    "type": "multi_source",
+    "expected_sources": [
+      "knowledge_base/axios_corpus/code/composeSignals.js",
+      "knowledge_base/axios_corpus/code/dispatchRequest.js",
+      "knowledge_base/axios_corpus/code/AxiosError.js"
+    ],
+    "reference_answer": "Cancellation signals are composed and checked during dispatch, and cancellation is propagated as an Axios error rather than a normal response.",
+    "answerable": true
+  },
+  {
+    "id": "q016",
+    "question": "How do Requests environment CA-bundle settings reach the TLS verification performed by its HTTP adapter?",
+    "type": "multi_source",
+    "expected_sources": [
+      "knowledge_base/requests_corpus/docs/advanced.rst",
+      "knowledge_base/requests_corpus/code/adapters.py"
+    ],
+    "reference_answer": "Requests can obtain CA-bundle settings from environment/configuration, and the HTTP adapter uses the resulting verification setting when establishing TLS connections.",
+    "answerable": true
+  },
+  {
+    "id": "q017",
+    "question": "How do Axios interceptors surround the actual request and response handling?",
+    "type": "multi_source",
+    "expected_sources": [
+      "knowledge_base/axios_corpus/code/Axios.js",
+      "knowledge_base/axios_corpus/code/InterceptorManager.js",
+      "knowledge_base/axios_corpus/code/dispatchRequest.js"
+    ],
+    "reference_answer": "Axios builds interceptor chains around dispatch: request interceptors run before dispatch, while response interceptors handle the returned response or rejection afterward.",
+    "answerable": true
+  },
+  {
+    "id": "q018",
+    "question": "A team wants shared defaults for many outgoing calls. How do Requests Sessions and Axios configuration merging support that?",
+    "type": "multi_source",
+    "expected_sources": [
+      "knowledge_base/requests_corpus/docs/advanced.rst",
+      "knowledge_base/axios_corpus/code/mergeConfig.js"
+    ],
+    "reference_answer": "A Requests Session stores defaults that apply across its requests, while Axios mergeConfig combines configuration objects according to its merge rules.",
+    "answerable": true
+  },
+  {
+    "id": "q019",
+    "question": "Why can a slow request affect later requests in the shared Requests-session incident, while the Axios incident required inspecting interceptor logic?",
+    "type": "multi_source",
+    "expected_sources": [
+      "knowledge_base/incidents/requests-timeout-incident.md",
+      "knowledge_base/incidents/axios-interceptor-incident.md",
+      "knowledge_base/requests_corpus/code/sessions.py",
+      "knowledge_base/axios_corpus/code/InterceptorManager.js"
+    ],
+    "reference_answer": "The Requests incident involved shared session pooling and retry behavior under load, whereas the Axios incident involved an interceptor misclassifying failures; the two require transport/session versus interceptor-level diagnosis.",
+    "answerable": true
+  },
+  {
+    "id": "q020",
+    "question": "Why could a custom CA bundle make otherwise trusted HTTPS connections fail in Requests?",
+    "type": "issue_incident",
+    "expected_sources": [
+      "knowledge_base/issues/requests/requests-issue-3908.md"
+    ],
+    "reference_answer": "Using REQUESTS_CA_BUNDLE could replace the expected trust chain rather than falling back to it, causing certificate validation failures for otherwise trusted roots.",
+    "answerable": true
+  },
+  {
+    "id": "q021",
+    "question": "Why could a slow chunked response in one Requests session cause the next request to time out even when that next server response was quick?",
+    "type": "issue_incident",
+    "expected_sources": [
+      "knowledge_base/issues/requests/requests-issue-4894.md"
+    ],
+    "reference_answer": "In the reported session behavior, a timed-out chunked request left the connection state affecting the subsequent pooled request, which then timed out despite the server responding quickly.",
+    "answerable": true
+  },
+  {
+    "id": "q022",
+    "question": "Why might a Requests timeout during a chunked read surface as ConnectionError instead of ReadTimeout?",
+    "type": "issue_incident",
+    "expected_sources": [
+      "knowledge_base/issues/requests/requests-issue-5430.md"
+    ],
+    "reference_answer": "The reported path catches urllib3 ReadTimeoutError while consuming response content and re-raises it as Requests ConnectionError, producing a \"Read timed out\" message without a ReadTimeout type.",
+    "answerable": true
+  },
+  {
+    "id": "q023",
+    "question": "What failure was reported by the Windows client after upgrading Requests from 2.27.1 to 2.28.1?",
+    "type": "issue_incident",
+    "expected_sources": [
+      "knowledge_base/issues/requests/requests-issue-6235.md"
+    ],
+    "reference_answer": "The client reported an SSL certificate verification failure saying the local issuer certificate could not be found, while the same transfer had worked on Requests 2.27.1.",
+    "answerable": true
+  },
+  {
+    "id": "q024",
+    "question": "Why was an SSLContext configured with CERT_NONE still followed by certificate verification in the reported Requests case?",
+    "type": "issue_incident",
+    "expected_sources": [
+      "knowledge_base/issues/requests/requests-issue-6254.md"
+    ],
+    "reference_answer": "The reported behavior was that Requests passed verify=True into the adapter path, so the SSLContext setting alone did not disable verification; the proposed workaround was to set verify=False or handle cert_verify explicitly.",
+    "answerable": true
+  },
+  {
+    "id": "q025",
+    "question": "A timeout is not showing up in an Axios response interceptor log. What problem does the reported issue describe?",
+    "type": "issue_incident",
+    "expected_sources": [
+      "knowledge_base/issues/axios/axios-issue-1174.md",
+      "knowledge_base/axios_corpus/code/InterceptorManager.js",
+      "knowledge_base/axios_corpus/code/AxiosError.js"
+    ],
+    "reference_answer": "The issue reports that timeout failures were not reaching the response interceptor, leaving logs with only the timeout message; useful diagnosis requires the Axios error details and interceptor path.",
+    "answerable": true
+  },
+  {
+    "id": "q026",
+    "question": "What kind of configuration change was associated with a stack-overflow problem in the Axios issue about a default agent?",
+    "type": "issue_incident",
+    "expected_sources": [
+      "knowledge_base/issues/axios/axios-issue-370.md"
+    ],
+    "reference_answer": "The issue was about a stack overflow when overwriting a default agent option in Axios configuration.",
+    "answerable": true
+  },
+  {
+    "id": "q027",
+    "question": "What compressed-response problem was reported in the Axios issue about Brotli responses?",
+    "type": "issue_incident",
+    "expected_sources": [
+      "knowledge_base/issues/axios/axios-issue-5346.md"
+    ],
+    "reference_answer": "The issue reported failures while processing Brotli-compressed responses, including an unexpected-end-of-file decompression error.",
+    "answerable": true
+  },
+  {
+    "id": "q028",
+    "question": "After a brief network interruption, why did a cancelled Axios request surface as a timeout error?",
+    "type": "issue_incident",
+    "expected_sources": [
+      "knowledge_base/issues/axios/axios-issue-5533.md"
+    ],
+    "reference_answer": "The report says a small network interruption caused the request to be cancelled but Axios surfaced a configured-timeout error instead of a cancellation-related error.",
+    "answerable": true
+  },
+  {
+    "id": "q029",
+    "question": "Why could setting the HTTP adapter explicitly in a browser produce a misleading Axios error message?",
+    "type": "issue_incident",
+    "expected_sources": [
+      "knowledge_base/issues/axios/axios-issue-5563.md"
+    ],
+    "reference_answer": "The issue reports that the browser build represented the HTTP adapter as null, leading Axios to say the adapter was unavailable rather than that it was unsupported in the environment.",
+    "answerable": true
+  },
+  {
+    "id": "q030",
+    "question": "Why did Orders requests start timing out under load in the Requests-based gateway?",
+    "type": "issue_incident",
+    "expected_sources": [
+      "knowledge_base/incidents/requests-timeout-incident.md"
+    ],
+    "reference_answer": "Slow responses from the Orders service combined with connection reuse through a shared requests.Session(). The gateway used timeout=(5, 30), so the read timeout was 30 seconds, and retries amplified the problem by sending more requests to the already overloaded Orders service.",
+    "answerable": true
+  },
+  {
+    "id": "q031",
+    "question": "What changes restored normal behavior after the Requests gateway experienced elevated timeouts?",
+    "type": "issue_incident",
+    "expected_sources": [
+      "knowledge_base/incidents/requests-timeout-incident.md"
+    ],
+    "reference_answer": "The team adjusted the Orders service connection-pool configuration, restarted the affected gateway instances, reduced unnecessary retries, added monitoring for read-timeout rates, and added a dashboard tracking outbound Requests latency.",
+    "answerable": true
+  },
+  {
+    "id": "q032",
+    "question": "Why were some failed checkout requests being treated as authentication failures instead of being classified by their actual failure type?",
+    "type": "issue_incident",
+    "expected_sources": [
+      "knowledge_base/incidents/axios-interceptor-incident.md"
+    ],
+    "reference_answer": "A response interceptor treated timeout errors as HTTP 401/authentication failures instead of distinguishing timeout, network, response, and cancellation cases.",
+    "answerable": true
+  },
+  {
+    "id": "q033",
+    "question": "Why did HTTPS calls to the partner gateway start failing after its certificate rotation, and what fixed them?",
+    "type": "issue_incident",
+    "expected_sources": [
+      "knowledge_base/incidents/ssl-certificate-incident.md"
+    ],
+    "reference_answer": "The partner rotation exposed a missing intermediate CA in the custom CA bundle; adding the intermediate CA, deploying the updated bundle, and restarting services restored connectivity.",
+    "answerable": true
+  },
+  {
+    "id": "q034",
+    "question": "What is the default retry count in Axios for a failed HTTP request?",
+    "type": "unanswerable",
+    "expected_sources": [],
+    "reference_answer": "I do not have a built-in Axios retry count in the indexed documents.",
+    "answerable": false
+  },
+  {
+    "id": "q035",
+    "question": "Does Requests support HTTP/2?",
+    "type": "unanswerable",
+    "expected_sources": [],
+    "reference_answer": "The indexed Requests documents do not state an HTTP/2 support mechanism.",
+    "answerable": false
+  },
+  {
+    "id": "q036",
+    "question": "How do I make asynchronous HTTP requests with Requests?",
+    "type": "unanswerable",
+    "expected_sources": [],
+    "reference_answer": "The indexed Requests documents do not provide an async/await request API.",
+    "answerable": false
+  },
+  {
+    "id": "q037",
+    "question": "What does Requests do automatically when a server returns HTTP 429 for rate limiting?",
+    "type": "unanswerable",
+    "expected_sources": [],
+    "reference_answer": "The indexed documents do not describe automatic 429 rate-limit handling or a default retry policy for that status.",
+    "answerable": false
+  },
+  {
+    "id": "q038",
+    "question": "Does Requests cache HTTP responses automatically?",
+    "type": "unanswerable",
+    "expected_sources": [],
+    "reference_answer": "The indexed Requests corpus does not describe a built-in HTTP response cache.",
+    "answerable": false
+  },
+  {
+    "id": "q039",
+    "question": "Does Requests support HTTP/3?",
+    "type": "unanswerable",
+    "expected_sources": [],
+    "reference_answer": "The indexed Requests corpus does not state an HTTP/3 support mechanism.",
+    "answerable": false
+  },
+  {
+    "id": "q040",
+    "question": "How does Django ORM implement transaction isolation?",
+    "type": "unanswerable",
+    "expected_sources": [],
+    "reference_answer": "The indexed documents contain no Django ORM transaction-isolation guidance.",
+    "answerable": false
+  },
+  {
+    "id": "q041",
+    "question": "What benchmark throughput does Requests achieve versus HTTPX at 10,000 concurrent requests?",
+    "type": "unanswerable",
+    "expected_sources": [],
+    "reference_answer": "The indexed documents do not contain a Requests-versus-HTTPX throughput benchmark.",
+    "answerable": false
+  },
+  {
+    "id": "q042",
+    "question": "What exact CPU and memory usage should be expected from Axios at 1,000 requests per second?",
+    "type": "unanswerable",
+    "expected_sources": [],
+    "reference_answer": "The indexed documents do not provide CPU or memory benchmarks for that workload.",
+    "answerable": false
+  },
+  {
+    "id": "q043",
+    "question": "How should a PostgreSQL index be designed for a 500-million-row table?",
+    "type": "unanswerable",
+    "expected_sources": [],
+    "reference_answer": "The indexed documents do not contain PostgreSQL indexing guidance for that scenario.",
+    "answerable": false
+  },
+  {
+    "id": "q044",
+    "question": "What Kubernetes deployment manifest should be used to run Axios as a microservice?",
+    "type": "unanswerable",
+    "expected_sources": [],
+    "reference_answer": "The indexed documents do not contain a Kubernetes deployment manifest or Axios microservice deployment procedure.",
+    "answerable": false
+  },
+  {
+    "id": "q045",
+    "question": "How does Redis persistence work with AOF and RDB snapshots?",
+    "type": "unanswerable",
+    "expected_sources": [],
+    "reference_answer": "The indexed documents do not contain Redis persistence documentation.",
+    "answerable": false
+  }
+]
